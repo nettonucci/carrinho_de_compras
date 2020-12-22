@@ -17,6 +17,7 @@ import {
 
 import {alterList} from '../../store/productList';
 import {productDetails} from '../../store/productDetails';
+import {alterNumber} from '../../store/counter';
 
 import Cart from '../../components/cart';
 
@@ -33,6 +34,7 @@ const Home = ({navigation}) => {
 
   function handleClickItem(item) {
     dispatch(productDetails(item));
+    // dispatch(alterNumber(item));
     navigation.navigate('ProductsInfo');
   }
 
@@ -40,7 +42,7 @@ const Home = ({navigation}) => {
     <Container>
       <Header>
         <Title>Produtos</Title>
-        <Cart navi={() => navigation.navigate('ProductsInfo')} />
+        <Cart navi={() => navigation.navigate('Cart')} />
       </Header>
       <ScrollCategoryList horizontal>
         <CategoryList>

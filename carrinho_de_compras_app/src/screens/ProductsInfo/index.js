@@ -4,29 +4,55 @@ import {useSelector} from 'react-redux';
 import {
   Container,
   Header,
-  Back,
+  Scroll,
   ButtonBack,
   ProductName,
   ProductImage,
   ProductPrice,
+  Icom,
+  ProductDescriptionTitle,
+  ProductDescriptionView,
+  ProductDescription,
+  Underline,
+  Button,
+  ButtonTitle,
+  AddToCartButton,
+  AddToCartTitle,
 } from './styles';
 import Cart from '../../components/cart';
+
+import {alterNumber} from '../../store/counter';
 
 const ProductsInfo = ({navigation}) => {
   const dispatch = useDispatch();
   const details = useSelector(state => state.detail);
-  console.log(details);
+  function handleClickAddToCart() {
+    dispatch(alterNumber(details));
+  }
   return (
     <Container>
       <Header>
         <ButtonBack onPress={() => navigation.navigate('HomeScreen')}>
-          <Back>Back</Back>
+          <Icom name="arrow-left" />
         </ButtonBack>
-        <Cart />
+        <Cart navi={() => navigation.navigate('Cart')} />
       </Header>
-      <ProductImage source={{uri: details.image}} />
-      <ProductName>{details.title}</ProductName>
-      <ProductPrice>R$: {details.price.toFixed(2)}</ProductPrice>
+      <Scroll>
+        <ProductImage source={{uri: details.image}} />
+        <ProductName>{details.title}</ProductName>
+        <ProductPrice>R$: {details.price.toFixed(2)}</ProductPrice>
+        <ProductDescriptionView>
+          <ProductDescriptionTitle>Descrição</ProductDescriptionTitle>
+          <Underline />
+        </ProductDescriptionView>
+        <ProductDescription>{details.description}</ProductDescription>
+        <Button>
+          <ButtonTitle>COMPRAR</ButtonTitle>
+        </Button>
+        <AddToCartButton onPress={handleClickAddToCart}>
+          <AddToCartTitle>ADICIONAR AO CARRINHO</AddToCartTitle>
+        </AddToCartButton>
+      </Scroll>
     </Container>
   );
 };
