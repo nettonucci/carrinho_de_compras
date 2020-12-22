@@ -77,7 +77,6 @@ export const ProductCategory = styled.Text`
 
 export const ProductQtd = styled.Text`
   font-size: 15;
-  margin-top: 5;
   margin-left: 5;
   color: #393636;
 `;
@@ -131,6 +130,24 @@ export const BuyButtonTitle = styled.Text`
   color: #fff;
 `;
 
+export const PayButton = styled.TouchableOpacity`
+  width: 180;
+  height: 36;
+  align-self: center;
+  justify-content: center;
+  border-radius: 5;
+  margin-top: 10;
+  margin-bottom: 10;
+  background-color: #f44336;
+`;
+
+export const PayButtonTitle = styled.Text`
+  font-size: 20;
+  font-weight: bold;
+  align-self: center;
+  color: #fff;
+`;
+
 export const ButtonTrash = styled.TouchableOpacity`
   width: 30;
   height: 30;
@@ -148,4 +165,48 @@ export const MaterialCommunityIconsTrash = styled(Icon)`
 export const ListItens = styled.View`
   width: 100%;
   height: 50%;
+`;
+
+export const ViewRow = styled.View`
+  flex-direction: row;
+  /* background-color: #f44336; */
+  align-items: center;
+  justify-content: space-between;
+`;
+
+export const BoxIcons = styled.View`
+  flex-direction: row;
+`;
+
+export const IconLess = styled(Icon)`
+  font-size: 25;
+`;
+
+export const IconMore = styled(Icon)`
+  font-size: 25;
+`;
+
+export const ProductPrice = styled.Text`
+  font-size: 18;
+  font-weight: 500;
+`;
+
+export const ButtonMoreOLess = styled.TouchableOpacity`
+  width: 30;
+  height: 30;
+  margin-right: 5;
+  /* background-color: #f44336; */
+  align-items: center;
+  justify-content: center;
+`;
+
+export const ProductQtdFinal = styled.Text`
+  font-size: 18;
+  font-weight: 500;
+  margin-top: 10;
+`;
+
+export const ModalContainer = styled.View`
+  height: auto;
+  align-items: center;
 `;

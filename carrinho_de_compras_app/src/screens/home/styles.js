@@ -21,6 +21,11 @@ export const Title = styled.Text`
   align-self: center;
 `;
 
+export const Body = styled.View`
+  flex: 1;
+  justify-content: center;
+`;
+
 export const ScrollCategoryList = styled.View`
   flex-direction: row;
   justify-content: center;
@@ -74,3 +79,5 @@ export const ProductImage = styled.Image`
   resize-mode: contain;
   margin-top: 10;
 `;
+
+export const Load = styled.ActivityIndicator``;

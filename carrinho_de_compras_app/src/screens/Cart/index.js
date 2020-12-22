@@ -1,5 +1,6 @@
-import React from 'react';
-import {FlatList, Text} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {FlatList, Alert} from 'react-native';
+import {Dialog, Portal} from 'react-native-paper';
 import {
   Container,
   Header,
@@ -22,6 +23,16 @@ import {
   MaterialCommunityIconsTrash,
   BuyButton,
   BuyButtonTitle,
+  ViewRow,
+  BoxIcons,
+  IconLess,
+  IconMore,
+  ProductPrice,
+  ButtonMoreOLess,
+  ModalContainer,
+  PayButton,
+  PayButtonTitle,
+  ProductQtdFinal,
 } from './styles';
 import {useSelector} from 'react-redux';
 import {useDispatch} from 'react-redux';
@@ -29,7 +40,12 @@ import {CleanCart} from '../../store/counter';
 import {DelItem} from '../../store/counter';
 
 const Cart = ({navigation}) => {
+  const [visible, setVisible] = useState(false);
+  const [Total, setTotal] = useState(0);
+  const showDialog = () => setVisible(true);
+  const hideDialog = () => setVisible(false);
   const dispatch = useDispatch();
+
   const List = useSelector(state => state.counter);
 
   function handleClearCart() {
@@ -42,7 +58,25 @@ const Cart = ({navigation}) => {
     dispatch(DelItem(id));
   }
 
-  let var1;
+  function handleClickFinal() {
+    let total = 0;
+    List.forEach(Lista => {
+      console.log(Lista.price);
+      total = total + Lista.price;
+    });
+    console.log(total);
+    setTotal(total);
+    showDialog();
+  }
+
+  function handlePagar() {
+    const cart = [];
+    dispatch(CleanCart(cart));
+    hideDialog();
+    Alert.alert('Sucesso', 'Pagamento realizado com sucesso');
+    navigation.navigate('HomeScreen');
+  }
+
   return (
     <Container>
       <Header>
@@ -74,7 +108,18 @@ const Cart = ({navigation}) => {
                     <ProductCategory>
                       Categoria: {item.category}
                     </ProductCategory>
-                    <ProductQtd>Quantidade: </ProductQtd>
+                    <ViewRow>
+                      <ProductQtd>Quantidade: 1</ProductQtd>
+                      <BoxIcons>
+                        <ButtonMoreOLess onPress={() => handleDelItem(item)}>
+                          <IconLess name="minus" />
+                        </ButtonMoreOLess>
+                        <ButtonMoreOLess>
+                          <IconMore name="plus" />
+                        </ButtonMoreOLess>
+                      </BoxIcons>
+                      <ProductPrice>R$: {item.price.toFixed(2)}</ProductPrice>
+                    </ViewRow>
                   </ProductInfo>
                 </ProductRow>
                 <Underline />
@@ -88,7 +133,7 @@ const Cart = ({navigation}) => {
       </AddToCartButton>
       {List.length !== 0 ? (
         <>
-          <BuyButton>
+          <BuyButton onPress={handleClickFinal}>
             <BuyButtonTitle>FINALIZAR</BuyButtonTitle>
           </BuyButton>
           <AddToCartButton onPress={handleClearCart}>
@@ -96,6 +141,19 @@ const Cart = ({navigation}) => {
           </AddToCartButton>
         </>
       ) : null}
+      <Portal>
+        <Dialog visible={visible} onDismiss={hideDialog}>
+          <ModalContainer>
+            <ProductQtdFinal>
+              Quantidade de itens: {List.length}
+            </ProductQtdFinal>
+            <ProductPrice>Total R$: {Total.toFixed(2)}</ProductPrice>
+            <PayButton onPress={handlePagar}>
+              <PayButtonTitle>PAGAR</PayButtonTitle>
+            </PayButton>
+          </ModalContainer>
+        </Dialog>
+      </Portal>
     </Container>
   );
 };

@@ -29,6 +29,11 @@ const ProductsInfo = ({navigation}) => {
   function handleClickAddToCart() {
     dispatch(alterNumber(details));
   }
+
+  function handleClickBuy() {
+    dispatch(alterNumber(details));
+    navigation.navigate('Cart');
+  }
   return (
     <Container>
       <Header>
@@ -46,7 +51,7 @@ const ProductsInfo = ({navigation}) => {
           <Underline />
         </ProductDescriptionView>
         <ProductDescription>{details.description}</ProductDescription>
-        <Button>
+        <Button onPress={handleClickBuy}>
           <ButtonTitle>COMPRAR</ButtonTitle>
         </Button>
         <AddToCartButton onPress={handleClickAddToCart}>
